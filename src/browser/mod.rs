@@ -1,15 +1,16 @@
-use crate::silkstick::graphicsys;
-use crate::silkstick::graphicsys::GraphicsHandle;
-use crate::silkstick::graphicsys::GraphicsSystem;
-use crate::silkstick::graphicsys::WindowSettings;
-use crate::silkstick::graphicsys::skiags;
+use crate::silkstick::graphicsys::{ GraphicsHandle, GraphicsSystem, WindowSettings, GraphicsSystemHooks };
+use crate::silkstick::graphicsys::skiags::SkiaGraphicsSystem;
+use crate::silkstick::graphicsys::skiags::backend::glbackend::GLBackend;
+use crate::silkstick::gui::screen::GUIContentScreen;
+
+
 
 pub fn run() {
-    let mut graphics_system = skiags::SkiaGraphicsSystem::new();
-    let hooks = graphicsys::GraphicsSystemHooks {
+    let mut graphics_system = SkiaGraphicsSystem::new(Box::new(GLBackend::new()));
+    let hooks = GraphicsSystemHooks {
         on_graphics_start: on_graphics_start,
         on_graphics_end: on_graphics_end,
-        ..graphicsys::GraphicsSystemHooks::default()
+        ..GraphicsSystemHooks::default()
     };
     graphics_system.start_and_block(hooks);
 }
@@ -18,6 +19,7 @@ fn on_graphics_start(graphics_handle: &mut Box<&mut dyn GraphicsHandle>) {
     println!("Graphics start");
     let window_settings = WindowSettings {
         title: "Webataka".to_string(),
+        screen: Box::new(GUIContentScreen::new()),
         ..WindowSettings::default()
     };
 

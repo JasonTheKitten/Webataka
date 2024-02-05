@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 glfw = "0.54.0"
 mockall = "0.12.1"
+skia-safe = { version = "0.70.0", features = ["gl", "x11"] }

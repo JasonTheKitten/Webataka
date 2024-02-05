@@ -28,11 +28,33 @@ pub trait GraphicsHandle {
     fn create_window(&mut self, settings: WindowSettings, on_window_created: fn(&mut Box<&mut dyn Window>));
 }
 
+pub trait GrahicsCanvas {
+    
+}
+
+pub trait ContentScreen {
+    fn needs_update(&self) -> bool;
+    fn update(&mut self, canvas: Box<dyn GrahicsCanvas>);
+}
+
+struct DefaultContentScreen {}
+
+impl ContentScreen for DefaultContentScreen {
+    fn needs_update(&self) -> bool {
+        true
+    }
+
+    fn update(&mut self, _:Box<dyn GrahicsCanvas>) {
+        // Do nothing
+    }
+}
+
 pub struct WindowSettings {
     pub title: String,
     pub size: (u32, u32),
     pub position: (u32, u32),
     pub decorated: bool,
+    pub screen: Box<dyn ContentScreen>,
 }
 
 impl Default for WindowSettings {
@@ -42,6 +64,7 @@ impl Default for WindowSettings {
             size: (800, 600),
             position: (100, 100),
             decorated: true,
+            screen: Box::new(DefaultContentScreen{}),
         }
     }
 }
