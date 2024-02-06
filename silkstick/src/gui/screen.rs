@@ -1,4 +1,4 @@
-use crate::silkstick::graphicsys::ContentScreen;
+use crate::graphicsys::{ ContentScreen, GrahicsCanvas };
 
 pub struct GUIContentScreen {
 
@@ -15,7 +15,7 @@ impl ContentScreen for GUIContentScreen {
         return true;
     }
 
-    fn update(&mut self, _: Box<dyn crate::silkstick::graphicsys::GrahicsCanvas>) {
+    fn update(&mut self, _: Box<dyn GrahicsCanvas>) {
         
     }
 }

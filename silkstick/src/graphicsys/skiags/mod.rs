@@ -1,7 +1,7 @@
 pub mod backend;
 
-use crate::silkstick::graphicsys::*;
-use crate::silkstick::graphicsys::skiags::backend::SkiaBackend;
+use crate::graphicsys::*;
+use crate::graphicsys::skiags::backend::SkiaBackend;
 use glfw::{self, fail_on_errors, Context};
 use skia_safe::{Canvas, Surface};
 

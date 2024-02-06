@@ -1,11 +1,9 @@
-use crate::silkstick::graphicsys::{ GraphicsHandle, GraphicsSystem, WindowSettings, GraphicsSystemHooks };
-use crate::silkstick::graphicsys::skiags::SkiaGraphicsSystem;
-use crate::silkstick::graphicsys::skiags::backend::glbackend::GLBackend;
-use crate::silkstick::gui::screen::GUIContentScreen;
+use silkstick::graphicsys::{ GraphicsHandle, GraphicsSystem, WindowSettings, GraphicsSystemHooks };
+use silkstick::graphicsys::skiags::SkiaGraphicsSystem;
+use silkstick::graphicsys::skiags::backend::glbackend::GLBackend;
+use silkstick::gui::screen::GUIContentScreen;
 
-
-
-pub fn run() {
+pub fn main() {
     let mut graphics_system = SkiaGraphicsSystem::new(Box::new(GLBackend::new()));
     let hooks = GraphicsSystemHooks {
         on_graphics_start: on_graphics_start,

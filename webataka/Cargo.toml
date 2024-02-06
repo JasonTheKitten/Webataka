@@ -1,0 +1,8 @@
+[package]
+name = "webataka"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mockall = "0.12.1"
+silkstick = { path = "../silkstick" }

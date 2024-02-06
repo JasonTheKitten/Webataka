@@ -1,0 +1,9 @@
+[package]
+name = "silkstick"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mockall = "0.12.1"
+glfw = "0.54.0"
+skia-safe = { version = "0.70.0", features = ["gl", "x11"] }
