@@ -1,3 +1,4 @@
+/// Allows for the creation of colors and provides some predefined colors.
 pub struct Color(u8, u8, u8, u8);
 
 pub const BLACK: Color = Color(0, 0, 0, 255);
@@ -19,14 +20,17 @@ pub const TRANSPARENT: Color = Color(0, 0, 0, 0);
 
 impl Color {
     
+    /// Create a new color from the given RGBA values.
     pub fn from_rgba8(r: u8, g: u8, b: u8, a: u8) -> Color {
         Color(r, g, b, a)
     }
 
+    /// Create a new color from the given RGB values.
     pub fn from_rgb8(r: u8, g: u8, b: u8) -> Color {
         Color(r, g, b, 255)
     }
 
+    /// Get the RGBA values of the color as a tuple.
     pub fn to_rgba8(&self) -> (u8, u8, u8, u8) {
         (self.0, self.1, self.2, self.3)
     }

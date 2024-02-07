@@ -2,11 +2,13 @@ use super::SkiaBackend;
 
 use skia_safe::gpu;
 
+/// A Skia backend that uses OpenGL for rendering.
 pub struct GLBackend {
 
 }
 
 impl GLBackend {
+    /// Create a new instance of the GLBackend.
     pub fn new() -> Self {
         GLBackend {}
     }

@@ -1,5 +1,7 @@
 use crate::graphicsys::{ ContentScreen, GrahicsCanvas };
 
+/// A GUIContentScreen is a special screen that allows for composing a GUI
+/// using this GUI module.
 pub struct GUIContentScreen {
 
 }

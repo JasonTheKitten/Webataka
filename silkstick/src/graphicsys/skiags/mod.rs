@@ -41,6 +41,7 @@ impl Window for SkiaWindow {
     }
 }
 
+/// A graphics system that uses Skia for rendering and GLFW for window management.
 pub struct SkiaGraphicsSystem {
     glfw: glfw::Glfw,
     windows: Vec<Box<SkiaWindow>>,
