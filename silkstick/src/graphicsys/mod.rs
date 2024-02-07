@@ -1,4 +1,9 @@
+use std::any::Any;
+
+use self::color::Color;
+
 pub mod skiags;
+pub mod color;
 
 pub struct GraphicsSystemHooks {
     pub on_graphics_start: fn(&mut Box<&mut dyn GraphicsHandle>),
@@ -28,13 +33,23 @@ pub trait GraphicsHandle {
     fn create_window(&mut self, settings: WindowSettings, on_window_created: fn(&mut Box<&mut dyn Window>));
 }
 
-pub trait GrahicsCanvas {
-    
+pub trait GrahicsCanvas<'a> {
+    fn alter_paint(&mut self, alter_fn: fn(&mut dyn Paint) -> ());
+    fn enter_section(&mut self, pos: (f32, f32), size: (f32, f32), clip: bool, section_func: fn(&mut dyn GrahicsCanvas));
+
+    fn draw_text(&mut self, pos: (f32, f32), text: &str);
+    fn draw_rect(&mut self, pos: (f32, f32), size: (f32, f32));
+    fn draw_elipse(&mut self, pos: (f32, f32), size: (f32, f32));
+    fn draw_line(&mut self, start: (f32, f32), mov: (f32, f32));
+}
+
+pub trait Paint: Any {
+    fn set_color(&mut self, color: Color);
 }
 
 pub trait ContentScreen {
     fn needs_update(&self) -> bool;
-    fn update(&mut self, canvas: Box<dyn GrahicsCanvas>);
+    fn update<'a>(&mut self, canvas: &mut dyn GrahicsCanvas<'a>);
 }
 
 struct DefaultContentScreen {}
@@ -44,7 +59,7 @@ impl ContentScreen for DefaultContentScreen {
         true
     }
 
-    fn update(&mut self, _:Box<dyn GrahicsCanvas>) {
+    fn update<'a>(&mut self, _:&mut dyn GrahicsCanvas<'a>) {
         // Do nothing
     }
 }

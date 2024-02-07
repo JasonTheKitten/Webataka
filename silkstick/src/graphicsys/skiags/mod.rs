@@ -1,9 +1,11 @@
 pub mod backend;
+mod canvas;
 
 use crate::graphicsys::*;
 use crate::graphicsys::skiags::backend::SkiaBackend;
 use glfw::{self, fail_on_errors, Context};
 use skia_safe::{Canvas, Surface};
+use canvas::*;
 
 pub struct SkiaWindow {
     glfw_window: glfw::PWindow,
@@ -88,25 +90,13 @@ fn update_window(window: &mut Box<SkiaWindow>) {
     window.glfw_window.make_current();
     if window.screen.needs_update() {
         let canvas = window.surface.canvas();
-        window.screen.update(create_canvas(&canvas));
+        update_screen(&mut window.screen, &canvas);
         canvas.direct_context()
             .expect("This window does not have a bound direct context, somehow!")
             .flush(None);
     }
 }
 
-struct SkiaCanvas {
-    
-}
-
-impl GrahicsCanvas for SkiaCanvas {
-    
-}
-
-fn create_canvas(surface_canvas: &Canvas) -> Box<dyn GrahicsCanvas> {
-    let mut paint = skia_safe::Paint::default();
-    paint.set_color(skia_safe::Color::from_argb(255, 255, 0, 0));
-    let rect = skia_safe::Rect::from_xywh(10.0, 10.0, 100.0, 100.0);
-    surface_canvas.draw_rect(rect, &paint);
-    Box::new(SkiaCanvas {})
+fn update_screen<'a>(screen: &mut Box<dyn ContentScreen>, canvas: &Canvas) {
+    screen.update(&mut create_canvas(&canvas));
 }
